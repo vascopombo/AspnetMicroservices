@@ -1,3 +1,6 @@
+using Discount.API.Extensions;
+using Discount.API.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,10 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//var host = builder.Build();
-//host.MigrateDatabase<Program>();
+builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -22,5 +25,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+//app.MigrateDatabase<Program>();
 
 app.Run();
